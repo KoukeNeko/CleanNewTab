@@ -1,10 +1,11 @@
 import './App.css';
 
+import FavoritePanel from './components/FavoritePanel/FavoritePanel';
+
 function App() {
   return (
     <div className="container">
-      <h1>Hello, Chrome Extension!</h1>
-      <p>This is a customized blank page.</p>
+      <FavoritePanel />
     </div>
   );
 }
