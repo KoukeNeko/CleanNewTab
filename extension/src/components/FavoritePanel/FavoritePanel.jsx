@@ -32,7 +32,7 @@ export default function FavoritePanel() {
         <WebsiteBtn websiteName='GitHub' websiteUrl='https://github.com/' />
         <WebsiteBtn websiteName='test' websiteUrl='https://tailwindcss.com/' />
         <WebsiteBtn websiteName='Google' websiteUrl='https://google.com/' />
-        <WebsiteBtn websiteName='YouTube' websiteUrl='https://YouTube.com/' />
+        <WebsiteBtn websiteName='YouTube' websiteUrl='https://ani.gamer.com.tw/' />
       </div>
     </div>
 

@@ -7,6 +7,7 @@ export default function WebsiteBtn({
 }) {
     const [contextMenuPos, setContextMenuPos] = useState({ x: 0, y: 0 });
     const [showContextMenu, setShowContextMenu] = useState(false);
+    const [appleTouchIconSrc, setAppleTouchIconSrc] = useState(null);
     const contextMenuRef = useRef(null);
 
     useEffect(() => {
@@ -22,6 +23,30 @@ export default function WebsiteBtn({
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchAppleTouchIcon = async () => {
+            try {
+                const response = await fetch(websiteUrl);
+                if (response.ok) {
+                    const html = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const appleTouchIconTag = doc.querySelector('link[rel="apple-touch-icon"]');
+                    if (appleTouchIconTag) {
+                        const iconSrc = appleTouchIconTag.getAttribute('href');
+                        if (iconSrc) {
+                            setAppleTouchIconSrc(iconSrc);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch apple-touch-icon:', error);
+            }
+        };
+
+        fetchAppleTouchIcon();
+    }, [websiteUrl]);
 
     const handleContextMenu = (event) => {
         event.preventDefault(); // Prevent the default right-click menu
@@ -65,7 +90,7 @@ export default function WebsiteBtn({
                 {/* icon or the website first word of title */}
                 <img
                     className='rounded-lg h-10 w-10'
-                    src={`https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${websiteUrl}/&size=256`}
+                    src={appleTouchIconSrc || `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${websiteUrl}/&size=256`}
                     alt='website icon'
                 />
                 {/* <div className='absolute top-2 right-2'>
